@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name='referrer' content='strict-origin-when-cross-origin' />
     <title>Temporizador Pomodoro</title>
     <style>
         * {
@@ -611,10 +612,11 @@
                 </div>
 
                 <div class="youtube-video">
-                    <iframe src="https://www.youtube.com/embed/VPFxZw5qUwE?si=ZKPZxRiLYe2v0nmM"
-                        title="YouTube video player" frameborder="0"
+                    <iframe title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                        id="youtubeVideoIframe"></iframe>
+                    <button class="btn-secondary" onclick="changeVideo()">🎬 Cambiar video</button>
                 </div>
             </div>
         </div>
@@ -971,6 +973,22 @@
 
         // Instancia global del timer
         const timer = new PomodoroTimer();
+
+        // Cargar video inicial al iframe
+        var currentVideo = "https://www.youtube-nocookie.com/embed/xFC5pnzDHgM?si=v4sOJ9V7lFDC_TE7";
+        document.getElementById('youtubeVideoIframe').src = currentVideo;
+
+        function changeVideo() {
+            const videos = ["https://www.youtube-nocookie.com/embed/VPFxZw5qUwE?si=ZKPZxRiLYe2v0nmM", "https://www.youtube-nocookie.com/embed/xFC5pnzDHgM?si=v4sOJ9V7lFDC_TE7"]
+
+            if (currentVideo == videos[0]) {
+                document.getElementById('youtubeVideoIframe').src = videos[1];
+                currentVideo = videos[1]
+            } else {
+                document.getElementById('youtubeVideoIframe').src = videos[0];
+                currentVideo = videos[0]
+            }
+        }
 
         function startSession() {
             const workTime = parseInt(document.getElementById("workTime").value);
